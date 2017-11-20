@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=www-data
 WorkingDirectory=/srv/api/cloudcourse/cmd
-ExecStart=/srv/api/cloudcourse/cmd/api cpuload 11
+ExecStart=/srv/api/cloudcourse/cmd/api/api cpuload 11
 Restart=on-abort
 
 [Install]
