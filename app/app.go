@@ -29,6 +29,7 @@ type Response struct {
 
 func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/event/", a.createEvent).Methods("POST")
+	a.Router.HandleFunc("/", a.healthCheck).Methods("GET")
 }
 
 func (a *App) createEvent(w http.ResponseWriter, r *http.Request) {
@@ -50,6 +51,11 @@ func (a *App) createEvent(w http.ResponseWriter, r *http.Request) {
 	resp := &Response{string(hash), ""}
 	respondWithJSON(w, 200, resp)
 
+}
+
+func (a *App) healthCheck(w http.ResponseWriter, r *http.Request) {
+	resp := &Response{"", ""}
+	respondWithJSON(w, 200, resp)
 }
 
 // Run function is the entry point
