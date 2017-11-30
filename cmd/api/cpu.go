@@ -7,7 +7,7 @@ import (
 )
 
 func cpuloadAPI(args []string) error {
-	a := app.App{}
+	a := app.CPUApp{}
 	costFactor, err := strconv.Atoi(args[0])
 	if err != nil {
 		return err
