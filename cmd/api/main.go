@@ -18,6 +18,8 @@ func usage() {
 	fmt.Fprintf(os.Stderr, "\n")
 	fmt.Fprintf(os.Stderr, "  hello    returns basic hello world\n")
 	fmt.Fprintf(os.Stderr, "\n")
+	fmt.Fprintf(os.Stderr, "  store    basic api that stores the json blob\n")
+	fmt.Fprintf(os.Stderr, "\n")
 	fmt.Fprintf(os.Stderr, "VERSION\n")
 	fmt.Fprintf(os.Stderr, "  %d (%s)\n", version, runtime.Version())
 	fmt.Fprintf(os.Stderr, "\n")
@@ -35,6 +37,8 @@ func main() {
 		run = cpuloadAPI
 	case "hello":
 		run = helloApp
+	case "store":
+		run = storeAPI
 	default:
 		usage()
 		os.Exit(1)
