@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 // StoreApp struct
@@ -22,9 +23,9 @@ func (a *StoreApp) initializeRoutes() {
 }
 
 func (a *StoreApp) saveStateOptions(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "content-type")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	// w.Header().Set("Access-Control-Allow-Headers", "content-type")
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -48,9 +49,9 @@ func (a *StoreApp) saveState(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 500)
 		return
 	}
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "content-type")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	// w.Header().Set("Access-Control-Allow-Headers", "content-type")
 	w.WriteHeader(200)
 }
 
@@ -62,9 +63,9 @@ func (a *StoreApp) getState(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// w.WriteHeader(200)
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "content-type")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	// w.Header().Set("Access-Control-Allow-Headers", "content-type")
 	w.Write(data)
 }
 
@@ -72,5 +73,6 @@ func (a *StoreApp) getState(w http.ResponseWriter, r *http.Request) {
 func (a *StoreApp) Run(addr string) error {
 	a.Router = mux.NewRouter()
 	a.initializeRoutes()
-	return http.ListenAndServe(addr, a.Router)
+	handler := cors.AllowAll().Handler(a.Router)
+	return http.ListenAndServe(addr, handler)
 }
