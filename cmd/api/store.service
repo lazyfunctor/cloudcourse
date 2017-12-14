@@ -1,0 +1,13 @@
+[Unit]
+Description=Rest API for json state storage
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/srv/api/cloudcourse/cmd
+ExecStart=/srv/api/cloudcourse/cmd/api/api store
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
