@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
-	"github.com/rs/cors"
 )
 
 // StoreApp struct
@@ -64,6 +63,7 @@ func (a *StoreApp) getState(w http.ResponseWriter, r *http.Request) {
 func (a *StoreApp) Run(addr string) error {
 	a.Router = mux.NewRouter()
 	a.initializeRoutes()
-	handler := cors.AllowAll().Handler(a.Router)
+	handler := a.Router
+	// handler := cors.AllowAll().Handler(a.Router)
 	return http.ListenAndServe(addr, handler)
 }
